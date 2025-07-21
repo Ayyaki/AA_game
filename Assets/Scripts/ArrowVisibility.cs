@@ -15,4 +15,9 @@ public class ArrowVisibility: MonoBehaviour
     {
         
     }
+    public void  makeArrowVisible()
+    {
+        Debug.Log("makeArrowVisible");
+        GetComponent<SpriteRenderer>().enabled = true;
+    }
 }

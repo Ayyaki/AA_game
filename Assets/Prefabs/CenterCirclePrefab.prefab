@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3670343945668894601}
   - component: {fileID: 421672636328203255}
-  - component: {fileID: -1623261727009243417}
   - component: {fileID: 8324142349642128754}
   m_Layer: 0
   m_Name: CenterCirclePrefab
@@ -91,33 +90,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!50 &-1623261727009243417
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4715044403980045845}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 0
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
 --- !u!114 &8324142349642128754
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -141,7 +113,6 @@ GameObject:
   - component: {fileID: 6367632149235414228}
   - component: {fileID: 5467728718628693823}
   - component: {fileID: 6889435295613003139}
-  - component: {fileID: 4842818640825764740}
   m_Layer: 7
   m_Name: Circle
   m_TagString: centerCircle
@@ -251,15 +222,3 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
---- !u!114 &4842818640825764740
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7367564605509159103}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 513ba6954c1cb432cb8353609dddf91e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

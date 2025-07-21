@@ -3,16 +3,19 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - centerCircle
+  - arrowHead
+  - arrowTail
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - arrowTail
   - Water
   - UI
-  - 
-  - 
+  - arrowHead
+  - centerCircle
   - 
   - 
   - 

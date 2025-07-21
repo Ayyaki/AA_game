@@ -13,7 +13,7 @@ public class SpawnLevelObjects : MonoBehaviour
     private int pinnedCount;
     internal float rotationSpeed;
     private bool isClockwise;
-    GameObject[] arrows;
+    public Queue<GameObject> arrows;
     private void Awake()
     {
         if (instance != null && instance != this)
@@ -31,7 +31,7 @@ public class SpawnLevelObjects : MonoBehaviour
         level = 1;
         arrowCount = Mathf.Min(5 + level / 2, 25);
         pinnedCount = Mathf.Min(level / 2, arrowCount - 2);
-        rotationSpeed = 0.5f;
+        rotationSpeed = 30 + level * 3;
         isClockwise = level % 2 == 0;
 
 
@@ -43,11 +43,10 @@ public class SpawnLevelObjects : MonoBehaviour
     //arrowların arasında 0.6 boşluk olacak şekilde instantiate et.
     public void instantiateArrows()
     {
-        arrows = new GameObject[arrowCount];
+        arrows = new Queue<GameObject>();
         for(int i = 0; i<arrowCount; i++)
         {
-            Debug.Log(i * 0.6f);
-            arrows[i] = Instantiate(ArrowPrefab, new Vector3(0, -3-i*0.6f, 0), Quaternion.identity);
+            arrows.Enqueue(Instantiate(ArrowPrefab, new Vector3(0, -3-i*0.6f, 0), Quaternion.identity));
         }
 
     }

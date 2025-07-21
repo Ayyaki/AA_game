@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class ArrangeCollision : MonoBehaviour
 {
+
+    [SerializeField] private ArrowVisibility arrowVisibility;
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (gameObject.CompareTag("arrowHead") && collision.gameObject.CompareTag("arrowHead"))
@@ -12,7 +15,8 @@ public class ArrangeCollision : MonoBehaviour
         }
         else if (gameObject.CompareTag("arrowTail") && collision.gameObject.CompareTag("centerCircle"))
         {
-
+            arrowVisibility.makeArrowVisible();
         }
     }
+
 }
