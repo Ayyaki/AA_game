@@ -13,6 +13,13 @@ public class RotationOfCenterChamber : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.Rotate(0, 0, SpawnLevelObjects.instance.rotationSpeed*Time.deltaTime);
+        if (SpawnLevelObjects.instance.isClockwise)
+        {
+            transform.Rotate(0, 0, -SpawnLevelObjects.instance.rotationSpeed * Time.deltaTime);
+        }
+        else
+        {
+            transform.Rotate(0, 0, SpawnLevelObjects.instance.rotationSpeed * Time.deltaTime);
+        }
     }
 }

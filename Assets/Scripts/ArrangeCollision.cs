@@ -40,7 +40,22 @@ public class ArrangeCollision : MonoBehaviour
             arrowTransform.SetParent(centerCircleTransform);
             SpawnLevelObjects.instance.collisionWCenterCircle = true;
             SpawnLevelObjects.instance.childCount++;
-
+            changeRotation(SpawnLevelObjects.instance.childCount);
+            
+        }
+    }
+    void changeRotation(int count)
+    {
+        if (count % 5 == 0)
+        {
+            if (SpawnLevelObjects.instance.isClockwise)
+            {
+                SpawnLevelObjects.instance.isClockwise = false;
+            }
+            else
+            {
+                SpawnLevelObjects.instance.isClockwise = true;
+            }
         }
     }
 

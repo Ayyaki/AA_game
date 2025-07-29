@@ -12,7 +12,7 @@ public class SpawnLevelObjects : MonoBehaviour
     private int arrowCount;
     private int pinnedCount;
     internal float rotationSpeed;
-    private bool isClockwise;
+    public bool isClockwise;
     public Queue<GameObject> arrows;
     public bool collisionWCenterCircle;
     public bool collisionHH;
@@ -65,6 +65,7 @@ public class SpawnLevelObjects : MonoBehaviour
             collisionWCenterCircle = false;
         }
         
+        
     }
     public void instantiateCenterCircle()
     {
@@ -89,6 +90,7 @@ public class SpawnLevelObjects : MonoBehaviour
             rb.AddForce(Vector2.up * 10f, ForceMode2D.Impulse);
 
         }
+
         
 
     }
@@ -103,6 +105,7 @@ public class SpawnLevelObjects : MonoBehaviour
         }
 
     }
+    
 
 
 
