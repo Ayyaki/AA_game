@@ -6,16 +6,41 @@ public class ArrangeCollision : MonoBehaviour
 {
 
     [SerializeField] private ArrowVisibility arrowVisibility;
+    private Transform centerCircleTransform;
+    [SerializeField] private Transform arrowTransform;
+    private InstantiatingMenus instantiateMenus;
+    private GameObject myCanvas;
 
+    private void Start()
+    {
+        instantiateMenus = GameObject.Find("Canvas").GetComponent<InstantiatingMenus>();
+        if (centerCircleTransform == null)
+        {
+            GameObject centerObj = GameObject.FindGameObjectWithTag("centerCircle");
+            if (centerObj != null)
+            {
+                centerCircleTransform = centerObj.transform;
+            }
+        }
+    }
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (gameObject.CompareTag("arrowHead") && collision.gameObject.CompareTag("arrowHead"))
         {
-
+            instantiateMenus.restartMenu();
         }
         else if (gameObject.CompareTag("arrowTail") && collision.gameObject.CompareTag("centerCircle"))
         {
-            arrowVisibility.makeArrowVisible();
+            Rigidbody2D rigidBody2D = GetComponentInParent<Rigidbody2D>();
+
+            rigidBody2D.bodyType = RigidbodyType2D.Kinematic;
+
+            rigidBody2D.constraints = RigidbodyConstraints2D.FreezeRotation;
+            arrowVisibility.makeArrowTailVisible();
+            arrowTransform.SetParent(centerCircleTransform);
+            SpawnLevelObjects.instance.collisionWCenterCircle = true;
+            SpawnLevelObjects.instance.childCount++;
+
         }
     }
 

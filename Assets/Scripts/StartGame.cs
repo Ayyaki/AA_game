@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class StartGame : MonoBehaviour
@@ -13,13 +14,14 @@ public class StartGame : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void Update()           
     {
-        
+         
     }
 
     public void startGame()
     {
+        
         Time.timeScale = 1f;
         SpawnLevelObjects.instance.instantiateArrows();
         SpawnLevelObjects.instance.instantiateCenterCircle();
@@ -28,13 +30,19 @@ public class StartGame : MonoBehaviour
     {
         throwButton = GetComponentInChildren<Button>();
         throwButton.interactable = true;
-        throwButton.onClick.AddListener(throwArrow);
+        throwButton.onClick.AddListener(SpawnLevelObjects.instance.throwArrow);
 
     }
-    private void throwArrow()
+    public void restartGame() {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+
+    }
+    public void continueGame()
     {
-        GameObject thrownArrow = SpawnLevelObjects.instance.arrows.Dequeue();
-        thrownArrow.GetComponent<Rigidbody2D>().AddForce(Vector2.up * 10f, ForceMode2D.Impulse);
+        int currentLevel = PlayerPrefs.GetInt("Level", 1); //hiç kaydedilememiş ise burada bunu çağırıyor aslında getInt buna bakar (yani default değerdir)
+        ++currentLevel;
+        PlayerPrefs.SetInt("Level", currentLevel);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
-
+   
 }

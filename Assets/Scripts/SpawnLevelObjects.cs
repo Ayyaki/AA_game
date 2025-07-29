@@ -14,6 +14,12 @@ public class SpawnLevelObjects : MonoBehaviour
     internal float rotationSpeed;
     private bool isClockwise;
     public Queue<GameObject> arrows;
+    public bool collisionWCenterCircle;
+    public bool collisionHH;
+    public bool passedTheLevel;
+    public int childCount;
+    [SerializeField] private InstantiatingMenus instantiateMenusInstance;
+    
     private void Awake()
     {
         if (instance != null && instance != this)
@@ -24,11 +30,12 @@ public class SpawnLevelObjects : MonoBehaviour
 
         instance = this;
 
-
+        
+        level = PlayerPrefs.GetInt("Level", 1);
     }
     private void Start()
     {
-        level = 1;
+        Debug.Log("gameplay level = "+ level);
         arrowCount = Mathf.Min(5 + level / 2, 25);
         pinnedCount = Mathf.Min(level / 2, arrowCount - 2);
         rotationSpeed = 30 + level * 3;
@@ -36,11 +43,34 @@ public class SpawnLevelObjects : MonoBehaviour
 
 
     }
+    public bool isLevelPassed()
+    {
+        
+        if (instantiateMenusInstance.nextLevelMenuDisplayed)
+        {
+            return false;
+        }
+        if(childCount == arrowCount)
+        {
+            return true;
+        }
+        
+        return false;
+    }
+    private void Update()
+    {
+        if (collisionWCenterCircle)
+        {
+            getArrowsFront();
+            collisionWCenterCircle = false;
+        }
+        
+    }
     public void instantiateCenterCircle()
     {
         Instantiate(CenterCirclePrefab, transform);
     }
-    //arrowların arasında 0.6 boşluk olacak şekilde instantiate et.
+    //the space between arrows are 0.6.
     public void instantiateArrows()
     {
         arrows = new Queue<GameObject>();
@@ -50,30 +80,31 @@ public class SpawnLevelObjects : MonoBehaviour
         }
 
     }
-    /*
-    public void changeScore(int score)
+    public void throwArrow()
     {
-        if (digitContainer)
+        if (arrows.Count != 0)
         {
-            foreach (Transform child in digitContainer)
-            {
-                Destroy(child.gameObject);
-            }
-            if (digitContainer.transform.position.x > 0)
-            {
-                digitContainer.transform.position = new Vector3(0, -801, 0);
-            }
+            GameObject thrownArrow = arrows.Dequeue();
+            var rb = thrownArrow.GetComponentInChildren<Rigidbody2D>();
+            rb.AddForce(Vector2.up * 10f, ForceMode2D.Impulse);
+
         }
-        string scoreString = score.ToString();
-        foreach(char c in scoreString)
-        {
-            int digit = int.Parse(c.ToString());
-          
-            GameObject digitObj = Instantiate(digitPrefab, digitContainer);
-            digitObj.GetComponent<Image>().sprite = digitSprites[digit];
-        }
+        
+
     }
-    */
+    private void getArrowsFront()
+    {
+        if (arrows.Count != 0)
+        {
+            foreach (var arrow in arrows)
+            {
+                arrow.transform.position = new Vector3(0, arrow.transform.position.y + 0.6f, 0);
+            }
+        }
+
+    }
+
+
 
 
 }
