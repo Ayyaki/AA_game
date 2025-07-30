@@ -19,7 +19,6 @@ public class SpawnLevelObjects : MonoBehaviour
     public bool passedTheLevel;
     public int childCount;
     [SerializeField] private InstantiatingMenus instantiateMenusInstance;
-    
     private void Awake()
     {
         if (instance != null && instance != this)
@@ -37,7 +36,7 @@ public class SpawnLevelObjects : MonoBehaviour
     {
         Debug.Log("gameplay level = "+ level);
         arrowCount = Mathf.Min(5 + level / 2, 25);
-        pinnedCount = Mathf.Min(level / 2, arrowCount - 2);
+        pinnedCount = Random.Range(1, 6);
         rotationSpeed = 30 + level * 3;
         isClockwise = level % 2 == 0;
 
@@ -69,7 +68,28 @@ public class SpawnLevelObjects : MonoBehaviour
     }
     public void instantiateCenterCircle()
     {
-        Instantiate(CenterCirclePrefab, transform);
+        GameObject circle = Instantiate(CenterCirclePrefab, transform);
+
+        if (level%3 == 0) 
+        {
+            
+            float angleStep = 360f / pinnedCount;
+
+            // Circle collider radius'u ve scale hesaba katılıyor
+            float radius = 2.054085378f;
+
+            for (int i = 0; i < pinnedCount; i++)
+            {
+                float angle = i * angleStep;
+                Vector3 pos = circle.transform.position + Quaternion.Euler(0, 0, angle) * Vector3.up * (radius + 0.6f); // 0.6f = arrow yüksekliği ayarı
+
+                GameObject arrow = Instantiate(ArrowPrefab, pos, Quaternion.Euler(0, 0, angle + 180f));
+                arrow.transform.SetParent(circle.transform);
+                
+                arrow.GetComponentInChildren<ArrowVisibility>().makeArrowTailVisible();
+                arrow.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Kinematic;
+            }
+        }
     }
     //the space between arrows are 0.6.
     public void instantiateArrows()
@@ -77,7 +97,9 @@ public class SpawnLevelObjects : MonoBehaviour
         arrows = new Queue<GameObject>();
         for(int i = 0; i<arrowCount; i++)
         {
-            arrows.Enqueue(Instantiate(ArrowPrefab, new Vector3(0, -3-i*0.6f, 0), Quaternion.identity));
+            GameObject arrow = Instantiate(ArrowPrefab, new Vector3(0, -3 - i * 0.6f, 0), Quaternion.identity);
+            arrow.GetComponentInChildren<ArrowVisibility>().makeArrowTailInvisible();
+            arrows.Enqueue(arrow);
         }
 
     }

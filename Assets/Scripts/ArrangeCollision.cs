@@ -31,6 +31,7 @@ public class ArrangeCollision : MonoBehaviour
         }
         else if (gameObject.CompareTag("arrowTail") && collision.gameObject.CompareTag("centerCircle"))
         {
+            Debug.Log("collided.");
             Rigidbody2D rigidBody2D = GetComponentInParent<Rigidbody2D>();
 
             rigidBody2D.bodyType = RigidbodyType2D.Kinematic;

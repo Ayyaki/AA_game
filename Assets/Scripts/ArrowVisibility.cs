@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class ArrowVisibility: MonoBehaviour
 {
+    [SerializeField] private SpriteRenderer spriteRenderer;
+
     // Start is called before the first frame update
     void Start()
     {
-        GetComponent<SpriteRenderer>().enabled = false;
+        
     }
 
     // Update is called once per frame
@@ -15,9 +17,12 @@ public class ArrowVisibility: MonoBehaviour
     {
         
     }
+    public void makeArrowTailInvisible()
+    {
+        spriteRenderer.enabled = false;
+    }
     public void  makeArrowTailVisible()
     {
-        
-        GetComponent<SpriteRenderer>().enabled = true;
+        spriteRenderer.enabled = true;
     }
 }
